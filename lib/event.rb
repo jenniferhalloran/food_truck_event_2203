@@ -54,4 +54,11 @@ class Event
     today_date = Date.today.strftime("%d/%m/%Y")
   end
 
+  def sell(item, quantity)
+    if total_inventory[item].nil? || total_inventory[item][:quantity] < quantity
+      false
+    else
+      true
+    end
+  end
 end
