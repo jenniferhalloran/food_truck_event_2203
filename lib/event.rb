@@ -24,5 +24,26 @@ class Event
     inventory.sort_by { |item| item.name}
   end
 
+  def overstocked_items
+    total_inventory.map do |item, stock_info|
+      item if stock_info[:quantity] > 50 && stock_info[:food_trucks].length > 1
+    end.compact
+  end
+
+  def total_inventory
+    inventory_hash = {}
+    @food_trucks.map do |food_truck|
+      food_truck.inventory.map do |item, quantity|
+        if inventory_hash[item].nil?
+          inventory_hash[item] = {quantity: quantity,
+                                  food_trucks: [food_truck]}
+        else
+          inventory_hash[item][:quantity] += quantity
+          inventory_hash[item][:food_trucks] << food_truck
+        end
+      end
+    end
+    inventory_hash
+  end
 
 end
