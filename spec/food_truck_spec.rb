@@ -32,5 +32,5 @@ RSpec.describe FoodTruck do
     expect(food_truck.inventory).to eq({item1 => 30,
                                         item2 => 12})
   end
-  
+
 end
