@@ -124,8 +124,12 @@ RSpec.describe Event do
     expect(event.date).to eq("26/04/2022")
 
     date = double("past date")
-    allow(event).to receive(:date).and_return("22/04/2020")
-    expect(event.date).to eq("22/04/2020")
+    allow(event).to receive(:date).and_return("24/02/2020")
+    expect(event.date).to eq("24/02/2020")
+  end
+
+  it "text" do
+
   end
 
 end
