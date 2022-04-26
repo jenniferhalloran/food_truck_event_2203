@@ -119,4 +119,8 @@ RSpec.describe Event do
     expect(event.total_inventory).to eq(expected_hash)
   end
 
+  it "can list the date in the correct format" do
+    expect(event.date).to eq("26/04/2022")
+  end
+
 end
