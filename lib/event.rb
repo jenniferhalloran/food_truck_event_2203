@@ -61,17 +61,14 @@ class Event
     food_trucks_with_item =  @food_trucks.select do |food_truck|
         food_truck.inventory.keys.include?(item)
       end
+      need_to_sell = quantity
       food_trucks_with_item.map do |food_truck|
-        food_truck.inventory[item] -= quantity
-      end
+          inventory = food_truck.inventory[item]
+          food_truck.inventory[item] -= need_to_sell.clamp(0, food_truck.inventory[item])
+          need_to_sell -= inventory
+          need_to_sell = 0 if need_to_sell <= 0
+        end
       true
     end
   end
 end
-
-##It should look through the FoodTrucks in the order they were added and
-##sell the item from the first FoodTruck with that item in stock. If that
-##FoodTruck does not have enough stock to satisfy the given quantity, the
-## FoodTruck's entire stock of that item will be depleted, and the remaining
-##quantity will be sold from the next food_truck with that item in stock. It
-##will follow this pattern until the entire quantity requested has been sold.
