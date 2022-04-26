@@ -54,15 +54,16 @@ class Event
     today_date = Date.today.strftime("%d/%m/%Y")
   end
 
+  def food_trucks_that_sell_item(item)
+    @food_trucks.select { |food_truck| food_truck.inventory.keys.include?(item) }
+  end
+
   def sell(item, quantity)
     if total_inventory[item].nil? || total_inventory[item][:quantity] < quantity
       false
     else
-    food_trucks_with_item =  @food_trucks.select do |food_truck|
-        food_truck.inventory.keys.include?(item)
-      end
       need_to_sell = quantity
-      food_trucks_with_item.map do |food_truck|
+      food_trucks_that_sell_item(item).map do |food_truck|
           inventory = food_truck.inventory[item]
           food_truck.inventory[item] -= need_to_sell.clamp(0, food_truck.inventory[item])
           need_to_sell -= inventory
