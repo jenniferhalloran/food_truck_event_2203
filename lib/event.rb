@@ -51,7 +51,7 @@ class Event
   end
 
   def date_string
-    today_date = Date.today.strftime("%d/%m/%Y")
+    Date.today.strftime("%d/%m/%Y")
   end
 
   def food_trucks_that_sell_item(item)
